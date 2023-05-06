@@ -77,9 +77,63 @@
 			background-color: #f1f1f1;
 			box-shadow: 4px 4px 8px #999999;
 		}
+		nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* background-color: #333; */
+            background-color: aliceblue;
+            padding: 10px 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        nav li {
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: rgb(26, 21, 21);
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #fff;
+            color: #333;
+        }
+
+        nav img {
+            max-width: 45%;
+            height: auto;
+        }
 	</style>
 </head>
 <body>
+	<header>
+        <nav>
+            <ul>
+                <li><img src="iiith-25-logo.png" alt="Logo"></li>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="lost.html">Lost</a></li>
+                <li><a href="borrow.html">Borrow</a></li>
+                <li><a href="sell.html">Sell</a></li>
+                <li><a href="found.html">Found</a></li>
+                <li><a href="buy.html">Buy</a></li>
+                <!-- add more links here as needed -->
+            </ul>
+            <!-- add more links here as needed -->
+        </nav>
+    </header>
     <div class="header">
         <h1>We Are Here to Help</h1>
 	</div>
@@ -97,4 +151,6 @@
       </footer>
 </body>
 </html>
+
+
 
