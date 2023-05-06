@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>We Are Here to Help</title>
+	<style>
+		body {
+			background-image: url("background.png");
+			background-repeat: no-repeat;
+			background-size: cover;
+			font-family: Arial, sans-serif;
+			color: #333;
+		}
+
+		.header {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 20%;
+			flex-direction: column;
+		}
+
+		.header h1 {
+			color: white;
+			font-size: 3rem;
+			margin-bottom: 1rem;
+			position: relative;
+			text-shadow: 2px 2px 4px #000000;
+		}
+
+		.header h1::after {
+			content: "";
+			display: block;
+			position: absolute;
+			bottom: -10px;
+			left: 50%;
+			transform: translateX(-50%);
+			height: 2px;
+			width: 70%;
+			background-color: white;
+		}
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            height: 80%;
+            gap: 0.5rem;
+            padding: 2rem;
+            flex-direction: column;
+        }
+        
+        footer {
+            background-color: #000000;
+            padding: 10px;
+            text-align: center;
+            border: 3px solid white;
+            bottom: 0;
+            color: white;
+          }
+		.option {
+            font-size: 1.5rem;
+			padding: 1rem;
+			border: 2px solid #333;
+			border-radius: 1rem;
+			background-color: white;
+			cursor: pointer;
+			transition: all 0.3s ease-in-out;
+			flex-basis: calc(33.33% - 4rem);
+			max-width: 350px;
+			margin-bottom: 2rem;
+			box-shadow: 2px 2px 4px #999999;
+			text-align: center;
+		}
+        
+		.option:hover {
+			transform: scale(1.05);
+			background-color: #f1f1f1;
+			box-shadow: 4px 4px 8px #999999;
+		}
+	</style>
+</head>
+<body>
+    <div class="header">
+        <h1>We Are Here to Help</h1>
+	</div>
+    <br>
+    <br>
+    <div class="options">
+        <div class="option">Lost</div>
+		<div class="option">Found</div>
+		<div class="option">Borrow</div>
+		<div class="option">Sell</div>
+		<div class="option">Buy</div>
+	</div>
+    <footer>
+        <p>&copy; 2023 XYZ. All Rights Reserved.</p>
+      </footer>
+</body>
+</html>
+
