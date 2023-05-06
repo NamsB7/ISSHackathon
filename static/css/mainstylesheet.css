@@ -1,0 +1,91 @@
+body {
+    background-image: url('../images/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    /* color: #333; */
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: #333; */
+    background-color: aliceblue;
+    padding: 10px 20px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+nav li {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 20px;
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+}
+
+nav a {
+    color: rgb(26, 21, 21);
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit
+}
+
+nav a:hover {
+    background-color: #fff;
+    color: #333;
+}
+
+nav img {
+    max-width: 45%;
+    height: auto;
+}
+
+footer {
+    margin-top: 100px;
+    bottom: 0%;
+    width: 99.5%;
+    line-height: 80px;
+    height: 80px;
+    background-color: #000000;
+    border: 3px solid white;
+    text-align: center;
+    color: white;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    margin-top: auto;
+}
+
+h1{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size:45px;
+    text-shadow: black 5px 5px 10px;
+    text-align: center;
+}

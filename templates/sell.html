@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sell an Item</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/mainstylesheet.css') }}">
+    <style>
+
+    form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(2, 6, 26, 0.514);
+    width:50%;
+    margin-left: auto;
+    margin-right: auto;
+    border: white 5px solid;
+  }
+
+  form label{
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  label {
+    margin-top: 10px;
+  }
+
+  input, select {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    width: 300px;
+  }
+
+  input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+    </style>
+  </head>
+  <body>
+    <header>
+        <nav>
+            <ul>
+                <li><img src="{{ url_for('static', filename='images/IIITlogo.png') }}" alt="Logo"></li>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="lost.html">Lost</a></li>
+                <li><a href="borrow.html">Borrow</a></li>
+                <li><a href="{{ url_for('sell') }}">Sell</a></li>
+                <li><a href="{{ url_for('found') }}">Found</a></li>
+                <li><a href="{{ url_for('buy') }}">Buy</a></li>
+
+            </ul>
+        </nav>
+    </header>
+    <main>
+    <h1>Sell Item</h1>
+    <h2 style="text-align:center">Put an item up for sale:</h2>
+    <form method="POST" action="{{ url_for('insert_item') }}">
+    
+      <label for="item_no">Item No:</label><br>
+      <p style="margin-top: 1px; text-align: center;">A unique item no is automatically generated<br> This cant be changed.</p>
+      <input type="text" id="item_no" name="ite    with sqlite3.connect(app.config['DATABASE']) as con:
+      cur = con.cursor()
+      cur.execute('SELECT * FROM items')
+      items = cur.fetchall()
+  return render_template('found.html', items=items)<br>
+      <p style="margin-top: 1px;">Enter what the item is in a few words.<br> For example: Linear Algebra Textbook</p>
+      <input type="text" id="item_type" name="item_type"><br>
+      
+      <label for="person_name">Name:</label><br>
+      <p style="margin-top: 1px;">Enter your name</p>
+      <input type="text" id="person_name" name="person_name"><br>
+      
+      <label for="person_phone_no">Phone No:</label><br>
+      <p style="margin-top: 1px;">Enter your phone no</p>
+      <input type="text" id="person_phone_no" name="person_phone_no"><br>
+      
+      <label for="person_email_id">Email Id:</label><br>
+      <p style="margin-top: 1px;">Enter your email id.</p>
+      <input type="email" id="person_email_id" name="person_email_id"><br>
+      
+      <label for="roll_no">Roll No:</label><br>
+      <p style="margin-top: 1px;">Enter your roll no.</p>
+      <input type="text" id="roll_no" name="roll_no"><br>
+      
+      <label for="item_status">Item Status:</label><br>
+      <p style="margin-top: 1px;">Don't change this item status, it should remain on option: on sale</p>
+      <select id="item_status" name="item_status">
+        <option value="lost">Lost</option>
+        <option value="found">Found</option>
+        <option value="on sale" selected>On Sale</option>
+      </select>
+      <br>
+      <input style="margin-top:80px" type="submit" value="Submit">
+    </form>
+    <br>
+    <br>
+    </main>
+    <footer>
+
+        &copy; 2023 Lost & Found IIIT-H. All Rights Reserved.
+   
+</footer>
+
+  </body>
+</html>
