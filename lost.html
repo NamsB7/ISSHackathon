@@ -195,6 +195,47 @@
             
       
         <h1 style="text-align:center">Lost Items</h1>
+
+        <div class="new">
+            <h2>New Entry</h2>
+            <form name="new-entry">
+                <label for="user">User:</label><br>
+                <input type="text" id="user" name="user" placeholder="User"><br>
+                <label for="type">Type:</label><br>
+                <input type="text" id="type" name="type" placeholder="Type"><br>
+                <label for="desc">Description:</label><br>
+                <input type="text" id="desc" name="desc" placeholder="Description"><br>
+                <label for="status">Status:</label><br>
+                <input type="radio" id="lost" name="status" value="lost">
+                <label for="lost">Lost</label>
+                <input type="radio" id="found" name="status" value="found">
+                <label for="found">Found</label>
+                <div class="review-submit">
+                    <button type="search">Submit</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="filter">
+            <h2>Filter</h2>
+            <form name="filter-entry">
+                <label for="user">User:</label><br>
+                <input type="text" id="user" name="user" placeholder="User"><br>
+                <label for="type">Type:</label><br>
+                <input type="text" id="type" name="type" placeholder="Type"><br>
+                <label for="desc">Description:</label><br>
+                <input type="text" id="desc" name="desc" placeholder="Description"><br>
+                <label for="status">Status:</label><br>
+                <input type="radio" id="lost" name="status" value="lost">
+                <label for="lost">Lost</label>
+                <input type="radio" id="found" name="status" value="found">
+                <label for="found">Found</label>
+                <div class="review-submit">
+                    <button type="search">Submit</button>
+                </div>
+            </form>
+        </div>
+
         <div class="container">
             <div class="item">
                 <h2>{{ item[1] }}</h2>
