@@ -46,6 +46,24 @@
     background-color: #3e8e41;
   }
 
+  #inp-sale {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #inp-borrow {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #inp-lostFound {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .search-item {
     background-color: white;
     width: 55%;
@@ -115,8 +133,11 @@
       <label for="item_no">Item No:</label><br>
       <input type="text" id="item_no" name="item_no"><br>
 
-      <label for="item_type">Item Type:</label><br>
-      <input type="text" id="item_type" name="item_type"><br>
+      <label for="item_name">Item Name:</label><br>
+      <input type="text" id="item_name" name="item_name"><br>
+
+      <label for="item_description">Item Description:</label><br>
+      <input type="text" id="item_description" name="item_description"><br>
       
       <label for="person_name">Name:</label><br>
       <input type="text" id="person_name" name="person_name"><br>
@@ -137,6 +158,24 @@
         <label for="found"> Found</label><br>
         <input type="radio" id="on-sale" name="item_status" value="on-sale">
         <label for="on-sale"> On Sale</label><br>
+
+        <div id="inp-sale">
+          <label for="roll_no">Price:</label><br>
+          <input type="text" id="price" name="price"><br>
+        </div>  
+  
+        <div id="inp-borrow">
+          <label for="time">Time Needed:</label><br>
+          <input type="text" id="time" name="time"><br>
+        </div>  
+  
+        <div id="inp-lostFound">
+          <label for="location">Location:</label><br>
+          <input type="text" id="location" name="location"><br>
+          <label for="date">Date:</label><br>
+          <input type="text" id="date" name="date"><br>
+        </div>  
+
       <input style="margin-top:80px" type="submit" value="Search">
     </form>
     {% if items %}
@@ -149,9 +188,16 @@
             <p class="search-itemType" style="background-color:rgb(169, 186, 209);">Lost</p>
             {% elif item[0] == "found" %}
             <p class="search-itemType" style="background-color:rgb(209, 169, 187);">Found</p>
+            {% elif item[0] == "borrow" %}
+            <p class="search-itemType" style="background-color:rgb(169, 209, 194);">Borrow</p>
             {% endif %}
             <p class="search-itemName">{{ item[1] }}</p>
             <p class="search-itemDesc"> {{ item[2] }}</p>
+            {% if item[0] == "on-sale" %}
+            <p class="search-itemDesc">Price: {{ item[7] }}</p>
+            {% elif item[0] == "borrow" %}
+            <p class="search-itemDesc">Duration: {{ item[7] }}</p>
+            {% endif %}
             <hr>
             <div class="search-person">
                 <p class="search-personName">{{ item[3] }}</p>
@@ -163,7 +209,38 @@
         {% endfor %}
     {% endif %}
     <br>
-    <br>
+    <script>
+      const lost = document.getElementById("lost");
+      const found = document.getElementById("found");
+      const onSale = document.getElementById("on-sale");
+      const borrow = document.getElementById("borrow");
+
+      const saleINP = document.getElementById("inp-sale");
+      const borrowINP = document.getElementById("inp-borrow");
+      const lostFoundINP = document.getElementById("inp-lostFound");
+    
+      lost.addEventListener("click", toggleAdditionalField);
+      found.addEventListener("click", toggleAdditionalField);
+      onSale.addEventListener("click", toggleAdditionalField);
+    
+      function toggleAdditionalField() {
+        if (onSale.checked) {
+          saleINP.style.display = "flex";
+        } else {
+          saleINP.style.display = "none";
+        }
+        if (lost.checked || found.checked) {
+          lostFoundINP.style.display = "flex";
+        } else {
+          lostFoundINP.style.display = "none";
+        }
+        if (borrow.checked) {
+          borrowINP.style.display = "flex";
+        } else {
+          borrowINP.style.display = "none";
+        }
+      }
+    </script>
     </main>
     <footer>
 
