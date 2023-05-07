@@ -189,12 +189,12 @@ def insert_item():
 def buy():
     with sqlite3.connect(app.config['DATABASE']) as con:
         cur = con.cursor()
-        cur.execute('''SELECT (item_no, item_description, person_name) FROM items WHERE item_type="on-sale"''')
+        cur.execute('''SELECT item_no, item_description, person_name FROM items WHERE item_status="on-sale"''')
         items = cur.fetchall()
     
     return render_template('buy.html', items=items)
 
-@app.route('/search', methods=['POST'])
+@app.route('/search', methods=['POST','GET'])
 def search():
     search_query = request.form['search_query']
     
