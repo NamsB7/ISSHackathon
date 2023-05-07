@@ -36,14 +36,14 @@
 
 # @app.route('/insert', methods=['POST'])
 # def insert_item():
-#     item_no = request.form['item_no']
-#     item_description = request.form['item_description']
-#     item_type = request.form['item_type']
-#     person_name = request.form['person_name']
-#     person_phone_no = request.form['person_phone_no']
-#     person_email_id = request.form['person_email_id']
-#     roll_no = request.form['roll_no']
-#     item_status = request.form['item_status']
+#     item_no = request.form.get('item_no']
+#     item_description = request.form.get('item_description']
+#     item_type = request.form.get('item_type']
+#     person_name = request.form.get('person_name']
+#     person_phone_no = request.form.get('person_phone_no']
+#     person_email_id = request.form.get('person_email_id']
+#     roll_no = request.form.get('roll_no']
+#     item_status = request.form.get('item_status']
     
 #     with sqlite3.connect(app.config['DATABASE']) as con:
 #         cur = con.cursor()
@@ -102,14 +102,14 @@
 
 # @app.route('/insert', methods=['POST'])
 # def insert_item():
-#     item_no = request.form['item_no']
-#     item_description = request.form['item_description']
-#     item_type = request.form['item_type']
-#     person_name = request.form['person_name']
-#     person_phone_no = request.form['person_phone_no']
-#     person_email_id = request.form['person_email_id']
-#     roll_no = request.form['roll_no']
-#     item_status = request.form['item_status']
+#     item_no = request.form.get('item_no']
+#     item_description = request.form.get('item_description']
+#     item_type = request.form.get('item_type']
+#     person_name = request.form.get('person_name']
+#     person_phone_no = request.form.get('person_phone_no']
+#     person_email_id = request.form.get('person_email_id']
+#     roll_no = request.form.get('roll_no']
+#     item_status = request.form.get('item_status']
     
 #     with sqlite3.connect(app.config['DATABASE']) as con:
 #         cur = con.cursor()
@@ -220,46 +220,53 @@ def search():
     if request.method == 'GET':
         return render_template('search.html')
 
-    #item_description = request.form['item_description']
-    item_type = request.form['item_type']
-    person_name = request.form['person_name']
-    person_phone_no = request.form['person_phone_no']
-    person_email_id = request.form['person_email_id']
-    roll_no = request.form['roll_no']
+    item_description = request.form.get('item_description')
+    item_type = request.form.get('item_name')
+    person_name = request.form.get('person_name')
+    person_phone_no = request.form.get('person_phone_no')
+    person_email_id = request.form.get('person_email_id')
+    roll_no = request.form.get('roll_no')
     item_status = request.form.get('item_status')
     
-    #if item_description != "":
-    #    desc = 'item_description LIKE "%'+item_description+'%" AND '
-    #else:
-    #    desc = '1 AND '
-    if item_type != "":
-        itype = 'item_type LIKE "%'+item_type+'%" AND '
+    if item_description is not None and item_description != "":
+        desc = 'item_description LIKE "%'+item_description+'%" AND '
+    else:
+        desc = '1 AND '
+    if item_type is not None and item_type != "":
+        itype = 'item_name LIKE "%'+item_type+'%" AND '
     else:
         itype = '1 AND '
-    if person_name != "":
+    if person_name is not None and person_name != "":
         name = 'person_name LIKE "%'+person_name+'%" AND '
     else:
         name = '1 AND '
-    if person_phone_no != "":
+    if person_phone_no is not None and person_phone_no != "":
         phone = 'person_phone_no LIKE "%'+person_phone_no+'%" AND '
     else:
         phone = '1 AND '
-    if person_email_id != "":
+    if person_email_id is not None and person_email_id != "":
         email = 'person_email_id LIKE "%'+person_email_id+'%" AND '
     else:
         email = '1 AND '
-    if roll_no != "":
+    if roll_no is not None and roll_no != "":
         Rno = 'roll_no LIKE "%'+roll_no+'%" AND '
     else:
         Rno = '1 AND '
     if item_status is not None:
         status = 'item_status="'+item_status+'"'
+        if item_status == "borrow":
+            extra = ", rent_for_dur"
+        elif item_status == "on-sale":
+            extra = ", item_price"
+        else:
+            extra = ""
     else:
         status = '1'
+        extra = ""
 
     with sqlite3.connect(app.config['DATABASE']) as con:
         cur = con.cursor()
-        cur.execute('SELECT item_status, item_type, item_description, person_name, person_email_id, person_phone_no, roll_no FROM items WHERE '+ itype + name + phone + email + Rno + status)
+        cur.execute('SELECT item_status, item_name, item_description, person_name, person_email_id, person_phone_no, roll_no' + extra + ' FROM items WHERE '+ desc + itype + name + phone + email + Rno + status)
         items = cur.fetchall()
 
     return render_template('search.html', items=items)
