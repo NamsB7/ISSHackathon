@@ -192,24 +192,24 @@ def buy():
         item_name = request.form['item_name']
         if item_description != "" and item_name != "":
             desc = 'item_description LIKE "%'+item_description+'%" OR '
-            name = 'item_no LIKE %'+item_name+'%'
+            name = 'item_type LIKE "%'+item_name+'%"'
         elif item_description != "":
             desc = 'item_description LIKE "%'+item_description+'%" AND '
             name = '1'
         elif item_name != "":
             desc = '1 AND '
-            name = 'item_no LIKE "%'+item_name+'%"'
+            name = 'item_type LIKE "%'+item_name+'%"'
         else:
             desc = '1 AND '
             name = '1'
         with sqlite3.connect(app.config['DATABASE']) as con:
             cur = con.cursor()
-            cur.execute('SELECT item_no, item_description, person_name FROM items WHERE item_status="on-sale" AND ('+desc+name+')')
+            cur.execute('SELECT item_type, item_description, person_name FROM items WHERE item_status="on-sale" AND ('+desc+name+')')
             items = cur.fetchall()
     else:
         with sqlite3.connect(app.config['DATABASE']) as con:
             cur = con.cursor()
-            cur.execute('''SELECT item_no, item_description, person_name FROM items WHERE item_status="on-sale"''')
+            cur.execute('''SELECT item_type, item_description, person_name FROM items WHERE item_status="on-sale"''')
             items = cur.fetchall()
     
     return render_template('buy.html', items=items)
