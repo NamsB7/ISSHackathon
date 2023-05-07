@@ -187,10 +187,30 @@ def insert_item():
 
 @app.route('/buy',methods=['POST','GET'])
 def buy():
-    with sqlite3.connect(app.config['DATABASE']) as con:
-        cur = con.cursor()
-        cur.execute('''SELECT item_no, item_description, person_name FROM items WHERE item_status="on-sale"''')
-        items = cur.fetchall()
+    if request.method == 'POST':
+        item_description = request.form['item_description']
+        item_name = request.form['item_name']
+        if item_description != "" and item_name != "":
+            desc = 'item_description LIKE "%'+item_description+'%" OR '
+            name = 'item_no LIKE %'+item_name+'%'
+        elif item_description != "":
+            desc = 'item_description LIKE "%'+item_description+'%" AND '
+            name = '1'
+        elif item_name != "":
+            desc = '1 AND '
+            name = 'item_no LIKE "%'+item_name+'%"'
+        else:
+            desc = '1 AND '
+            name = '1'
+        with sqlite3.connect(app.config['DATABASE']) as con:
+            cur = con.cursor()
+            cur.execute('SELECT item_no, item_description, person_name FROM items WHERE item_status="on-sale" AND ('+desc+name+')')
+            items = cur.fetchall()
+    else:
+        with sqlite3.connect(app.config['DATABASE']) as con:
+            cur = con.cursor()
+            cur.execute('''SELECT item_no, item_description, person_name FROM items WHERE item_status="on-sale"''')
+            items = cur.fetchall()
     
     return render_template('buy.html', items=items)
 
@@ -206,4 +226,4 @@ def search():
     return render_template('search_results.html', items=items)
     
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=5001, debug=True)
