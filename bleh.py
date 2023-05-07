@@ -167,7 +167,6 @@ def sell():
 
 @app.route('/insert', methods=['POST'])
 def insert_item():
-    item_no = request.form['item_no']
     item_description = request.form['item_description']
     item_type = request.form['item_type']
     person_name = request.form['person_name']
@@ -179,16 +178,21 @@ def insert_item():
     with sqlite3.connect(app.config['DATABASE']) as con:
         cur = con.cursor()
         cur.execute('''INSERT INTO items 
-                       (item_no, item_description, item_type, person_name, person_phone_no, person_email_id, roll_no, item_status)
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?)''',
-                    (item_no, item_description, item_type, person_name, person_phone_no, person_email_id, roll_no, item_status))
+                       (item_description, item_type, person_name, person_phone_no, person_email_id, roll_no, item_status)
+                       VALUES (?, ?, ?, ?, ?, ?, ?)''',
+                    (item_description, item_type, person_name, person_phone_no, person_email_id, roll_no, item_status))
     
     return redirect(url_for('found'))
 
 
-@app.route('/buy')
+@app.route('/buy',methods=['POST','GET'])
 def buy():
-    return render_template('buy.html')
+    with sqlite3.connect(app.config['DATABASE']) as con:
+        cur = con.cursor()
+        cur.execute('''SELECT (item_no, item_description, person_name) FROM items WHERE item_type="on-sale"''')
+        items = cur.fetchall()
+    
+    return render_template('buy.html', items=items)
 
 @app.route('/search', methods=['POST'])
 def search():
