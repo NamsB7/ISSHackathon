@@ -191,7 +191,7 @@ def buy():
         item_description = request.form['item_description']
         item_name = request.form['item_name']
         if item_description != "" and item_name != "":
-            desc = 'item_description LIKE "%'+item_description+'%" OR '
+            desc = 'item_description LIKE "%'+item_description+'%" AND '
             name = 'item_type LIKE "%'+item_name+'%"'
         elif item_description != "":
             desc = 'item_description LIKE "%'+item_description+'%" AND '
@@ -212,18 +212,16 @@ def buy():
             cur.execute('''SELECT item_type, item_description, person_name FROM items WHERE item_status="on-sale"''')
             items = cur.fetchall()
     
-    return render_template('buy.html', items=items)
+    return render_template('buy2.html', items=items)
 
 @app.route('/search', methods=['POST','GET'])
 def search():
-    search_query = request.form['search_query']
     
-    with sqlite3.connect(app.config['DATABASE']) as con:
-        cur = con.cursor()
-        cur.execute('''SELECT * FROM items WHERE item_description LIKE ? OR item_type LIKE ?''', ('%' + search_query + '%', '%' + search_query + '%'))
-        items = cur.fetchall()
-        
-    return render_template('search_results.html', items=items)
+    if request.method == 'GET':
+        return render_template('search.html')
+        item_description = request.form['item_description']
+    
+    
     
 if __name__ == '__main__':
     app.run(port=5001, debug=True)
