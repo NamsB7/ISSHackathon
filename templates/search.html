@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Search for an Item</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/mainstylesheet.css') }}">
+    <style>
+
+    form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(2, 6, 26, 0.514);
+    width:50%;
+    margin-left: auto;
+    margin-right: auto;
+    border: white 5px solid;
+  }
+
+  form label{
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  label {
+    margin-top: 10px;
+  }
+
+  input, select {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    width: 300px;
+  }
+
+  input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+
+  .search-item {
+    background-color: white;
+    width: 55%;
+    border-radius: 10px;
+    
+    margin: 0 auto;
+    margin-bottom: 20px;
+    color: black;
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    }
+
+  .search-person {
+    column-count: 4;
+    font-family:'Courier New', Courier, monospace;
+    font-size: 15px;
+  }
+
+  .search-personName {
+    margin-top: -1px;
+  }
+
+  .search-personContact {
+    text-align: right;
+  }
+
+  .search-itemName {
+    font-size: 1rem;
+    font-weight:bold;
+  }
+  .search-itemDesc {
+    padding-left: 10px;
+    color: rgb(122, 121, 121);
+  }
+
+  .search-itemType {
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+    </style>
+  </head>
+  <body>
+    <header>
+        <nav>
+            <ul>
+                <li><img src="{{ url_for('static', filename='images/IIITlogo.png') }}" alt="Logo"></li>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="lost.html">Lost</a></li>
+                <li><a href="borrow.html">Borrow</a></li>
+                <li><a href="{{ url_for('sell') }}">Sell</a></li>
+                <li><a href="{{ url_for('found') }}">Found</a></li>
+                <li><a href="{{ url_for('buy') }}">Buy</a></li>
+                <li><a href="{{ url_for('search')}}">Search</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+    <h1>Search Items</h1>
+    <h2 style="text-align:center">Search for any item:</h2>
+    <form method="POST" action="{{ url_for('search') }}">
+    
+      <label for="item_no">Item No:</label><br>
+      <input type="text" id="item_no" name="item_no"><br>
+
+      <label for="item_type">Item Type:</label><br>
+      <input type="text" id="item_type" name="item_type"><br>
+      
+      <label for="person_name">Name:</label><br>
+      <input type="text" id="person_name" name="person_name"><br>
+      
+      <label for="person_phone_no">Phone No:</label><br>
+      <input type="text" id="person_phone_no" name="person_phone_no"><br>
+      
+      <label for="person_email_id">Email Id:</label><br>
+      <input type="email" id="person_email_id" name="person_email_id"><br>
+      
+      <label for="roll_no">Roll No:</label><br>
+      <input type="text" id="roll_no" name="roll_no"><br>
+      
+      <label for="item_status">Item Status:</label><br>
+        <input type="radio" id="lost" name="item_status" value="lost">
+        <label for="lost"> Lost</label><br>
+        <input type="radio" id="found" name="item_status" value="found">
+        <label for="found"> Found</label><br>
+        <input type="radio" id="on-sale" name="item_status" value="on-sale">
+        <label for="on-sale"> On Sale</label><br>
+      <input style="margin-top:80px" type="submit" value="Search">
+    </form>
+    {% if items %}
+      <h2>Search Results:</h2>
+        {% for item in items %}
+        <div class="search-item">
+            {% if item[0] == "on-sale" %}
+            <p class="search-itemType" style="background-color:rgb(207, 169, 209);">On Sale</p>
+            {% elif item[0] == "lost" %}
+            <p class="search-itemType" style="background-color:rgb(169, 186, 209);">Lost</p>
+            {% elif item[0] == "found" %}
+            <p class="search-itemType" style="background-color:rgb(209, 169, 187);">Found</p>
+            {% endif %}
+            <p class="search-itemName">{{ item[1] }}</p>
+            <p class="search-itemDesc"> {{ item[2] }}</p>
+            <hr>
+            <div class="search-person">
+                <p class="search-personName">{{ item[3] }}</p>
+                <p class="search-personRollNo">{{ item[6] }}</p>
+                <p class="search-personContact">{{ item[4] }}</p>
+                <p class="search-personContact">{{ item[5] }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+    <br>
+    <br>
+    </main>
+    <footer>
+
+        &copy; 2023 Lost & Found IIIT-H. All Rights Reserved.
+   
+</footer>
+
+  </body>
+</html>
